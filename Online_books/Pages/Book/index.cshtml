@@ -1,0 +1,64 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@model Online_books.Pages.Book.indexModel
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="container mt-3">
+
+    <div class="row">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="col-10">
+                <h2 class="text-info">Books</h2>
+            </div>
+            <div class="col-2">
+                <a asp-page="Create" class="btn btn-info">Create Book</a>
+            </div>
+        }
+        else
+        {
+            <div class="col-12">
+                <h2 class="text-info">Latest Books</h2>
+            </div>            
+        }
+    </div>
+    <hr />
+
+    <div class="row p-3">
+        @if (Model.Books.Count() == 0)
+        {
+            <p>No Books</p>
+        }
+        else
+        {
+            @foreach (var book in Model.Books)
+            {
+                <div class="col-3 ml-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/imgs/@book.ImgUrl" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Name</h5>
+                            <h5>@book.Auther | @book.Category.Name</h5>
+                            @if (book.Description.Length > 89)
+                            {
+                                <p class="card-text">@book.Description.Substring(0, 89) ...</p>
+                            }
+                            else
+                            {
+                                <p class="card-text">@book.Description</p>
+                            }
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <a asp-page="Delete" asp-route-id="@book.Id" class="btn btn-primary">Delete</a>
+                            }
+                            <a asp-page="Details" asp-route-id="@book.Id" class="btn btn-info">View</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

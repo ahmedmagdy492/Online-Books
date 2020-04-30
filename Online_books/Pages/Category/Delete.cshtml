@@ -1,0 +1,22 @@
+﻿@page
+@model Online_books.Pages.Category.DeleteModel
+@{
+    ViewData["Title"] = "Are you Sure ?";
+}
+
+<div class="container mt-2">
+    <h2 class="text-info">Are you Sure you Want to Delete ?</h2>
+    <label>@Model.Category.Name</label>
+    <p class="text-danger">this will lead to delete all the books that are categorized under this category</p>
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-6">
+                <a asp-page="index" class="form-control btn btn-success">Cancel</a>
+            </div>
+            <div class="col-6">
+                <input type="submit" value="Confirm" class="form-control btn btn-danger" />
+            </div>
+        </div>
+    </form>
+</div>
+

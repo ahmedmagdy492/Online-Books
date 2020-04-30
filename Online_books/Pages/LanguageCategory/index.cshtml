@@ -1,0 +1,39 @@
+﻿@page
+@model Online_books.Pages.LanguageCategory.indexModel
+@{
+    ViewData["Title"] = "Languages";
+}
+
+<div class="container mt-3">
+
+    <div class="row">
+        <div class="col-10">
+            <h2 class="text-info">Books Langauges</h2>
+        </div>
+        <div class="col-2">
+            <a asp-page="Create" class="btn btn-info">Create Category</a>
+        </div>
+    </div>
+    <hr />
+
+    <div class="row border p-3">
+        @if (Model.LanguageCategories.Count() == 0)
+        {
+            <p>No Categories</p>
+        }
+        else
+        {
+            @foreach (var cate in Model.LanguageCategories)
+            {
+                <div class="col-3">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">@cate.Name</h5>
+                            <a href="#" class="btn btn-primary">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

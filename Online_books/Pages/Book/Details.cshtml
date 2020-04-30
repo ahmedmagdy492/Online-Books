@@ -1,0 +1,64 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@model Online_books.Pages.Book.DetailsModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-3 border p-lg-5">
+    <h2 class="text-center text-info">@Model.Book.Name</h2>
+    <hr />
+
+    <div class="mt-3 p-lg-5">
+        <img style="width: 100%; height:100%;" src="/imgs/@Model.Book.ImgUrl" />
+
+        <br />
+        <br />
+
+        <p class="text-dark">
+            @Model.Book.Description
+        </p>
+        <h3 id="wait" class="text-center">Please Wait....</h3>
+        <h2 id="download" class="text-center border m-4">10</h2>
+    </div>
+</div>
+
+@section downloadScript{
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <script>
+        const download = document.querySelector('#download');
+        const wait = document.querySelector('#wait');
+        let countDown = 10;
+        download.innerHTML = countDown;
+        const id = setInterval(() => {
+            if (countDown > 0) {
+                countDown--;
+                download.innerHTML = countDown;
+            }
+            else {
+                clearInterval(id);
+                wait.remove();
+                download.classList.remove('border');
+                download.innerHTML = `<a target="_blank" class="btn btn-success form-control" href="/files/@System.IO.Path.GetFileName(Model.Book.Url)" download="/files/@System.IO.Path.GetFileName(Model.Book.Url)">Download</a>`;
+            }
+        }, 1000);
+        </script>
+    }
+    else
+    {
+        <script>
+            const download = document.querySelector('#download');
+            const wait = document.querySelector('#wait');
+            window.addEventListener('load', () => {
+                wait.remove();
+                download.classList.add('text-danger');
+                download.classList.remove('border');
+                download.style.fontSize = '18px';
+                download.style.fontWeight = "bold";
+                download.innerHTML = 'You must Login to be able to Download';
+            });
+        </script>
+    }
+}
