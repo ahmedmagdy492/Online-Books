@@ -1,12 +1,11 @@
 ﻿@page
-@model Online_books.Pages.Book.CreateModel
+@model Online_books.Pages.Book.EditModel
 @{
-    ViewData["Title"] = "Create Book";
+    ViewData["Title"] = "Edit " + Model.Book.Name;
 }
 
-
 <div class="container mt-2">
-    <h2 class="text-info">Create New Book</h2>
+    <h2 class="text-info">Edit @Model.Book.Name</h2>
     <hr />
     <form method="post" enctype="multipart/form-data">
         <div class="border p-5 mt-4">
@@ -16,8 +15,8 @@
                 </div>
                 <div class="col-8">
                     <input type="text" asp-for="Book.Name" class="form-control" />
-                </div>                
-            </div>            
+                </div>
+            </div>
             <div class="row form-group">
                 <div class="col-2">
                     <label asp-for="Book.Auther"></label>
@@ -32,7 +31,7 @@
                     <label asp-for="Book.Url"></label>
                 </div>
                 <div class="col-8">
-                    <input type="file" name="PdfFile" class="form-control" />
+                    <input type="file" value="@Model.Book.Url" name="PdfFile" class="form-control" />
                 </div>
             </div>
 
@@ -41,7 +40,7 @@
                     <label asp-for="Book.LangCategoryId"></label>
                 </div>
                 <div class="col-8">
-                    <select asp-for="Book.LangCategoryId" asp-items="Model.LangCategories" class="form-control"></select>
+                    <select asp-for="Book.LangCategoryId" asp-items="Model.LanguageCategories" class="form-control"></select>
                 </div>
             </div>
 
@@ -59,7 +58,7 @@
                     <label asp-for="Book.ImgUrl"></label>
                 </div>
                 <div class="col-8">
-                    <input type="file" name="ImgFile" class="form-control" />
+                    <input type="file" value="@Model.Book.ImgUrl" name="ImgFile" class="form-control" />
                 </div>
             </div>
 
@@ -74,7 +73,7 @@
 
             <div class="row form-group offset-sm-2 mt-4">
                 <div class="col-3">
-                    <input type="submit" class="btn btn-primary form-control" value="Create Book" />
+                    <input type="submit" class="btn btn-primary form-control" value="Save Changes" />
                 </div>
                 <div class="col-3">
                     <a asp-page="index" class="btn btn-success form-control">Back to List</a>
@@ -87,8 +86,3 @@
         </div>
     </form>
 </div>
-
-
-@section Scripts{    
-    <partial name="_ValidationScriptsPartial" />
-}

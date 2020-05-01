@@ -1,0 +1,21 @@
+﻿@page
+@model Online_books.Pages.Book.DeleteModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-2">
+    <h2 class="text-info">Are you Sure you Want to Delete this Book ?</h2>
+    <label>@Model.Book.Name</label>
+    <p class="text-danger">you won't be able to rollback this action</p>
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-6">
+                <a asp-page="index" class="form-control btn btn-success">Cancel</a>
+            </div>
+            <div class="col-6">
+                <input type="submit" value="Confirm" class="form-control btn btn-danger" />
+            </div>
+        </div>
+    </form>
+</div>

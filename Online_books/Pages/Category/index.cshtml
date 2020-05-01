@@ -24,18 +24,39 @@
             <p>No Categories</p>
         }
         else
-        {
-            @foreach (var cate in Model.Categories)
-            {
-                <div class="col-3 m-2">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">@cate.Name</h5>
-                            <a asp-page="Delete" asp-route-id="@cate.Id" class="btn btn-primary">Delete</a>
-                        </div>
-                    </div>
-                </div>
-            }
+        {            
+            <table class="table table-bordered table-striped" id="DT_load">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cate in Model.Categories)
+                    {
+                        <tr>
+                            <td>
+                                @cate.Name
+                            </td>
+                            <td>
+                                <a asp-page="Delete" asp-route-id="@cate.Id" class="btn btn-primary">Delete</a> |
+                                <a asp-page="Edit" asp-route-id="@cate.Id" class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         }
     </div>
 </div>
+
+@*@section Scripts{
+    <script src="~/js/cateList.js"></script>*@
+@* } *@

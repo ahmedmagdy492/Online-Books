@@ -41,7 +41,7 @@
                 clearInterval(id);
                 wait.remove();
                 download.classList.remove('border');
-                download.innerHTML = `<a target="_blank" class="btn btn-success form-control" href="/files/@System.IO.Path.GetFileName(Model.Book.Url)" download="/files/@System.IO.Path.GetFileName(Model.Book.Url)">Download</a>`;
+                download.innerHTML = `<a target="_blank" class="btn btn-success form-control" href="/Book/Download?id=@Model.Book.Id">Download</a>`;
             }
         }, 1000);
         </script>

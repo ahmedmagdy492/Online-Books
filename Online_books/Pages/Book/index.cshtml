@@ -38,13 +38,13 @@
             {
                 <div class="col-3 ml-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="/imgs/@book.ImgUrl" class="card-img-top" alt="...">
+                        <img src="/imgs/@book.ImgUrl" class="card-img-top img-thumbnail" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@book.Name</h5>
                             <h5>@book.Auther | @book.Category.Name</h5>
-                            @if (book.Description.Length > 89)
+                            @if (book.Description?.Length > 89)
                             {
-                                <p class="card-text">@book.Description.Substring(0, 89) ...</p>
+                                <p class="card-text">@book.Description?.Substring(0, 89) ...</p>
                             }
                             else
                             {
@@ -52,7 +52,10 @@
                             }
                             @if (SignInManager.IsSignedIn(User))
                             {
-                                <a asp-page="Delete" asp-route-id="@book.Id" class="btn btn-primary">Delete</a>
+                                @*<a style="cursor: pointer;" onclick="return confirm('Are you sure you want to delete?')" asp-page-handler="Delete" asp-route-id="@book.Id" class="text-white btn btn-primary">Delete</a>*@
+                                <a asp-page="Delete" asp-route-id="@book.Id" class="btn btn-danger">Delete</a>
+
+                                <button asp-page="Edit" asp-route-id="@book.Id" class="btn btn-info">Edit</button>
                             }
                             <a asp-page="Details" asp-route-id="@book.Id" class="btn btn-info">View</a>
                         </div>
@@ -62,3 +65,20 @@
         }
     </div>
 </div>
+
+
+@section deleteScript{
+
+    <script>
+        function deleteBook (e, id)
+        {
+            $.ajax({
+                url: 'http://localhost:44376/Book?id=' + id,
+                method: 'POST',
+                success: function () {
+                    e.target.remove();
+                }
+            });
+        }
+    </script>
+}

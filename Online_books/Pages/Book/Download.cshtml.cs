@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,22 +10,21 @@ using Online_books.Data;
 
 namespace Online_books.Pages.Book
 {
-    public class indexModel : PageModel
+    public class DownloadModel : PageModel
     {
         private ApplicationDbContext db;
 
-        public indexModel(ApplicationDbContext _db)
+        public DownloadModel(ApplicationDbContext _db)
         {
             db = _db;
         }
-        public IEnumerable<Models.Book> Books { get; set; }
+
         [FromQuery]
         public int id { get; set; }
-
-
-        public async Task OnGet()
+        public async Task<IActionResult> OnGet()
         {
-            Books = await db.Books.Include("Category").ToListAsync();
-        }        
+            var book = await db.Books.FirstOrDefaultAsync(b => b.Id == id);
+            return File(Path.Combine("files", book.Url), "application/pdf");
+        }
     }
 }
