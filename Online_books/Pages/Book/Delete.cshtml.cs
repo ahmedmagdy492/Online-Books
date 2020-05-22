@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Online_books.Data;
 
 namespace Online_books.Pages.Book
 {
+    [Authorize(Policy = "AdminPolicy")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext db;

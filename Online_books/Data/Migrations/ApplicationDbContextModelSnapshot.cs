@@ -44,6 +44,22 @@ namespace Online_books.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "23b4a7e1-765d-4e59-8419-fc49f449b7cb",
+                            ConcurrencyStamp = "021162ab-bbf4-4eaf-b956-30702b3c67d9",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "fa96c1a6-85a2-4c93-ac79-d683d8f961a8",
+                            ConcurrencyStamp = "ea0ee277-c68d-45fb-847d-e39dd9e2e15a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -232,6 +248,9 @@ namespace Online_books.Data.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

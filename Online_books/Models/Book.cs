@@ -20,6 +20,8 @@ namespace Online_books.Models
         [Required]
         public string Auther { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
 
         [DisplayName("Pdf File")]
         public string Url { get; set; }
